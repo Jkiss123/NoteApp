@@ -3,6 +3,7 @@
 -Viewmodel,Livedata
 -MVVM architecture
 -navigation component
+-Hilt
 
 Mô tả dùng để ghi task hoặc ghi nhớ 
 
