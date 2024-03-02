@@ -9,7 +9,8 @@ import com.example.noteapp.model.Note
 @Database(entities = [Note::class], version = 1)
 abstract class NoteDatabase : RoomDatabase() {
     abstract fun getNoteDao(): NoteDao
-
+/*
+//Thay bang hilt provider
     companion object{
         @Volatile
         private var instance :NoteDatabase? = null
@@ -24,4 +25,6 @@ abstract class NoteDatabase : RoomDatabase() {
         }
         private fun createDatabase(context: Context) = Room.databaseBuilder(context.applicationContext,NoteDatabase::class.java,"note_database").build()
     }
+
+ */
 }

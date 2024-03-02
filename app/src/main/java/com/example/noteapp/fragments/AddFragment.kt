@@ -9,8 +9,10 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.noteapp.MainActivity
@@ -18,14 +20,17 @@ import com.example.noteapp.R
 import com.example.noteapp.databinding.FragmentAddBinding
 import com.example.noteapp.model.Note
 import com.example.noteapp.viewmodel.NoteViewModel
+import com.example.noteapp.viewmodel.NoteViewModelHilt
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class AddFragment : Fragment(R.layout.fragment_add),MenuProvider {
+    //val noteViewModel : NoteViewModelHilt by viewModels()
 
     private var addBinding : FragmentAddBinding? = null
     private val binding get() = addBinding!!
 
-    private lateinit var noteViewModel: NoteViewModel
+    private lateinit var noteViewModel: NoteViewModelHilt
 
     private lateinit var addView: View
 

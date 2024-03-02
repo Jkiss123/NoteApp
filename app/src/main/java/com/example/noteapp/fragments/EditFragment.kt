@@ -10,8 +10,10 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -20,12 +22,15 @@ import com.example.noteapp.R
 import com.example.noteapp.databinding.FragmentEditBinding
 import com.example.noteapp.model.Note
 import com.example.noteapp.viewmodel.NoteViewModel
+import com.example.noteapp.viewmodel.NoteViewModelHilt
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class EditFragment : Fragment(R.layout.fragment_edit),MenuProvider {
     private var editNoteBinding : FragmentEditBinding? = null
     private val binding get() = editNoteBinding!!
-    private lateinit var noteViewModel: NoteViewModel
+    //val noteViewModel : NoteViewModelHilt by viewModels()
+    private lateinit var noteViewModel: NoteViewModelHilt
     private lateinit var currentNote: Note
 
     private val args: EditFragmentArgs by navArgs()
@@ -49,16 +54,14 @@ class EditFragment : Fragment(R.layout.fragment_edit),MenuProvider {
         binding.editNoteDesc.setText(currentNote.noteDesc)
 
         binding.editNoteFab.setOnClickListener {
-            val noteTitle = binding.editNoteTitle.text.toString().trim()
-            val noteDecs =  binding.editNoteDesc.text.toString().trim()
 
-            if(noteTitle != null){
-                val note = Note(0,noteTitle,noteDecs)
+            // muốn update thì phải set primary key chuẩn chỉ kể cả nó autogenerate
+                val note = Note(currentNote.id,binding.editNoteTitle.text.toString().trim(),binding.editNoteDesc.text.toString().trim())
                 noteViewModel.updateNote(note)
+            Toast.makeText(context,"Lưu thành công ",Toast.LENGTH_LONG).show()
                 findNavController().popBackStack(R.id.homeFragment,false)
-            }else{
-                Toast.makeText(context,"Nhập lại tiêu đề ",Toast.LENGTH_LONG).show()
-            }
+
+
 
         }
     }

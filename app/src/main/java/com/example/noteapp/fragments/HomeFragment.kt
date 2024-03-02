@@ -10,8 +10,10 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.activity.viewModels
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -21,13 +23,16 @@ import com.example.noteapp.adapter.NoteAdapter
 import com.example.noteapp.databinding.FragmentHomeBinding
 import com.example.noteapp.model.Note
 import com.example.noteapp.viewmodel.NoteViewModel
+import com.example.noteapp.viewmodel.NoteViewModelHilt
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home),SearchView.OnQueryTextListener,MenuProvider {
 
     private var homeBinding :FragmentHomeBinding? = null
     private val binding get() = homeBinding!!
-    private lateinit var noteViewModel: NoteViewModel
+    //val noteViewModel : NoteViewModelHilt by viewModels()
+    private lateinit var noteViewModel: NoteViewModelHilt
     private lateinit var noteAdapter: NoteAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
